@@ -1,8 +1,17 @@
-const Button = () => {
-  return window.scrollTo({
-    top: document.documentElement.scrollHeight,
-    behavior: 'smooth',
-  });
-};
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import s from './Button.module.css';
 
-export default Button;
+export default class Button extends Component {
+  render() {
+    const { onClick } = this.props;
+    return (
+      <button className={s.Button} type="button" onClick={onClick}>
+        Load more
+      </button>
+    );
+  }
+}
+  Button.propTypes = {
+    onClick: PropTypes.func.isRequired,
+  };

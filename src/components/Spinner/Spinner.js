@@ -1,13 +1,11 @@
-import React from 'react';
 import Loader from 'react-loader-spinner';
-import style from '../Spinner/Spinner.module.css';
-
-function Spinner() {
-  return (
-    <div className={style.spinner}>
-      <Loader type="Puff" color="#00BFFF" height={200} width={200} timeout={3000} />
-    </div>
-  );
+import React, { Component } from 'react';
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+import s from './Spinner.module.css'
+export default class Spinner extends Component {
+  render() {
+    return (
+        <Loader className={s.spinner} type="MutatingDots" color="#5da066" height={100} width={100} />
+    );
+  }
 }
-
-export default Spinner;

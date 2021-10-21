@@ -1,22 +1,29 @@
-import React from 'react';
 import PropTypes from 'prop-types';
-import style from '../ImageGalleryItem/ImageGalleryItem.module.css';
+import React, { Component } from 'react';
+import s from './ImageGalleryItem.module.css';
 
-export default function ImageGalleryItem({ tags, webformatURL, selectedImage }) {
-  return (
-    <li className={style.ImageGalleryItem}>
-      <img
-        src={webformatURL}
-        alt={tags}
-        onClick={selectedImage}
-        className={style.ImageGalleryItemImage}
-      />
-    </li>
-  );
+export default class ImageGalleryItem extends Component {
+  render() {
+    const { webformatURL, tags, toggleModal, bigImage } = this.props;
+    return (
+      <li className={s.ImageGalleryItem}>
+        <img
+          src={webformatURL}
+          alt={tags}
+          className={s.image}
+          onClick={() => {
+            toggleModal();
+            bigImage();
+          }}
+        />
+      </li>
+    );
+  }
 }
 
 ImageGalleryItem.propTypes = {
-  tags: PropTypes.string.isRequired,
-  webformatURL: PropTypes.string.isRequired,
-  selectedImage: PropTypes.func,
+  webformatURL: PropTypes.string,
+  tags: PropTypes.string,
+  toggleModal: PropTypes.func,
+  bigImage: PropTypes.func,
 };
