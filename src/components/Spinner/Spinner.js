@@ -5,7 +5,7 @@ import s from './Spinner.module.css'
 export default class Spinner extends Component {
   render() {
     return (
-        <Loader className={s.spinner} type="MutatingDots" color="#5da066" height={100} width={100} />
+        <Loader className={s.spinner} type="MutatingDots" color="#ca0e82" height={100} width={100} />
     );
   }
 }
