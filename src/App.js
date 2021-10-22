@@ -29,8 +29,9 @@ componentDidUpdate(prevProps, prevState) {
     this.setState({ status: 'pending' });
       fetchApi(query, page)
       .then(data => data.hits)
-      .then(data => this.setState({ data: data, status: 'resolved' }));
-  }
+      .then(data => this.setState({ data: data, status: 'resolved' }))
+      .catch(data => this.setState({ data: data, status: 'error' }))
+    }
 
   if (prevState.page !== page && page !== 1) {
     this.setState({ status: 'pending' });
@@ -40,11 +41,14 @@ componentDidUpdate(prevProps, prevState) {
     this.setState(prevState => ({
       data: [...prevState.data, ...data],
       status: 'resolved',
-    }))
+    })   
+     
+      )
     if (page !== 1) {
       this.scrollOnLoadButton();
     };
-  })}
+  })
+  .catch(data => this.setState({ data: data, status: 'error' }))}
 }
 scrollOnLoadButton = () => {
   window.scrollTo({

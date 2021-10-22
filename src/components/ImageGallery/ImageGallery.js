@@ -1,11 +1,14 @@
-import PropTypes from 'prop-types';
-import React, { Component } from 'react';
+// import PropTypes from 'prop-types';
+// import React, { Component } from 'react';
 import ImageGalleryItem from '../ImageGalleryItem'
 import s from './ImageGallery.module.css';
+import React from 'react';
 
-export default class ImageGallery extends Component {
-  render() {
-    const { data,toggleModal,bigImage } = this.props;
+export default function  ImageGallery  ({data,toggleModal,bigImage}) {
+ 
+ 
+  
+    
     return (
       <ul className={s.ImageGallery}>
         {data.map(el => (
@@ -22,17 +25,17 @@ export default class ImageGallery extends Component {
       </ul>
     );
   }
-}
 
-ImageGallery.propTypes = {
-  query: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number,
-      tags: PropTypes.string,
-      webformatURL: PropTypes.string,
-      largeImageURL: PropTypes.string,
-    }),
-  ),
-  bigImage: PropTypes.func,
-  toggleModal: PropTypes.func,
-};
+
+// ImageGallery.propTypes = {
+//   query: PropTypes.arrayOf(
+//     PropTypes.shape({
+//       id: PropTypes.number,
+//       tags: PropTypes.string,
+//       webformatURL: PropTypes.string,
+//       largeImageURL: PropTypes.string,
+//     }),
+//   ),
+//   bigImage: PropTypes.func,
+//   toggleModal: PropTypes.func,
+// };
