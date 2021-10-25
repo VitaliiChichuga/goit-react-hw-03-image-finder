@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ToastContainer} from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './App.module.css';
 
@@ -12,7 +12,7 @@ import Modal from 'components/Modal';
 import Spinner from 'components/Spinner';
 
 export default class App extends Component {
-  state={
+  state = {
     status: 'idle',
     query: '',
     page: 1,
@@ -22,65 +22,65 @@ export default class App extends Component {
     modalLargeImage: '',
   };
 
-componentDidUpdate(prevProps, prevState) {
-  const { query, page} = this.state;
+  componentDidUpdate(prevProps, prevState) {
+    const { query, page } = this.state;
 
-  if (prevState.query !== query) {
-    this.setState({ status: 'pending' });
+    if (prevState.query !== query) {
+      this.setState({ status: 'pending' });
       fetchApi(query, page)
-      .then(data => data.hits)
-      .then(data => this.setState({ data: data, status: 'resolved' }))
-      .catch(data => this.setState({ data: data, status: 'error' }))
+        .then(data => data.hits)
+        .then(data => this.setState({ data: data, status: 'resolved' }))
+        .catch(data => this.setState({ data: data, status: 'error' }));
     }
 
-  if (prevState.page !== page && page !== 1) {
-    this.setState({ status: 'pending' });
-  fetchApi(query, page)
-  .then(data => data.hits)
-  .then(data =>{
-    this.setState(prevState => ({
-      data: [...prevState.data, ...data],
-      status: 'resolved',
-    })   
-     
-      )
-    if (page !== 1) {
-      this.scrollOnLoadButton();
-    };
-  })
-  .catch(data => this.setState({ data: data, status: 'error' }))}
-}
-scrollOnLoadButton = () => {
-  window.scrollTo({
-    top: document.documentElement.scrollHeight,
-    behavior: 'smooth',
-  });
-};
+    if (prevState.page !== page && page !== 1) {
+      this.setState({ status: 'pending' });
+      fetchApi(query, page)
+        .then(data => data.hits)
+        .then(data => {
+          this.setState(prevState => ({
+            data: [...prevState.data, ...data],
+            status: 'resolved',
+          }));
+          if (page !== 1) {
+            this.scrollOnLoadButton();
+          }
+        })
+        .catch(data => this.setState({ data: data, status: 'error' }));
+    }
+  }
+  scrollOnLoadButton = () => {
+    window.scrollTo({
+      top: document.documentElement.scrollHeight,
+      behavior: 'smooth',
+    });
+  };
 
-handleFormSubmit = query =>{
- this.setState({
-   query: query,
-   page: 1});
-};
+  handleFormSubmit = query => {
+    this.setState({
+      query: query,
+      page: 1,
+    });
+  };
 
-buttonLoadMore = () => {
-  const { page } = this.state;
-  this.setState({
-    page: page + 1,
-    status: 'pending',
-  });
-};
-toggleModal = () => {
-  this.setState(({ showModal }) => ({
-    showModal: !showModal,
-  }));
-};
+  buttonLoadMore = () => {
+    const { page } = this.state;
+    this.setState({
+      page: page + 1,
+      status: 'pending',
+    });
+  };
+  toggleModal = () => {
+    this.setState(({ showModal }) => ({
+      showModal: !showModal,
+    }));
+  };
 
-modalImage = (id, img, tags) => {
-  this.setState({ modalLargeImage: { id: id, img: img, tags: tags } });
-};
+  modalImage = (id, img, tags) => {
+    this.setState({ modalLargeImage: { id: id, img: img, tags: tags } });
+  };
 
-  render(){
+  render() {
     const { handleFormSubmit, toggleModal, modalImage, buttonLoadMore } = this;
     const { data, status, showModal, modalLargeImage } = this.state;
     return (
@@ -93,10 +93,11 @@ modalImage = (id, img, tags) => {
         />
         {status === 'pending' && <Spinner />}
         {data.length > 0 && <Button onClick={buttonLoadMore} />}
-        {showModal && <Modal closeModal={toggleModal} modalImage={modalLargeImage} />}
-        <ToastContainer autoClose={2000}/>
-        </Container>
+        {showModal && (
+          <Modal closeModal={toggleModal} modalImage={modalLargeImage} />
+        )}
+        <ToastContainer autoClose={2000} />
+      </Container>
     );
   }
- }
-
+}

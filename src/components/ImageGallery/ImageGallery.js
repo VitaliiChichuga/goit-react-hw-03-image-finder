@@ -1,41 +1,39 @@
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 // import React, { Component } from 'react';
-import ImageGalleryItem from '../ImageGalleryItem'
+import ImageGalleryItem from '../ImageGalleryItem';
 import s from './ImageGallery.module.css';
 import React from 'react';
 
-export default function  ImageGallery  ({data,toggleModal,bigImage}) {
- 
- 
-  
-    
-    return (
-      <ul className={s.ImageGallery}>
-        {data.map(el => (
+export default function ImageGallery({ data, toggleModal, bigImage }) {
+  return (
+    <ul className={s.ImageGallery}>
+      {data.map(({ id, largeImageURL, tags, webformatURL }) => {
+        const bigImageOnModalOpen = () => bigImage(id, largeImageURL, tags);
+        return (
           <ImageGalleryItem
-            key={el.id}
-            id={el.id}
-            webformatURL={el.webformatURL}
-            largeImageURL={el.largeImageURL}
-            tags={el.tags}
+            key={id}
+            id={id}
+            webformatURL={webformatURL}
+            largeImageURL={largeImageURL}
+            tags={tags}
             toggleModal={() => toggleModal()}
-            bigImage={() => bigImage(el.id, el.largeImageURL, el.tags)}
+            bigImage={bigImageOnModalOpen}
           />
-        ))}
-      </ul>
-    );
-  }
+        );
+      })}
+    </ul>
+  );
+}
 
-
-// ImageGallery.propTypes = {
-//   query: PropTypes.arrayOf(
-//     PropTypes.shape({
-//       id: PropTypes.number,
-//       tags: PropTypes.string,
-//       webformatURL: PropTypes.string,
-//       largeImageURL: PropTypes.string,
-//     }),
-//   ),
-//   bigImage: PropTypes.func,
-//   toggleModal: PropTypes.func,
-// };
+ImageGallery.propTypes = {
+  query: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number,
+      tags: PropTypes.string,
+      webformatURL: PropTypes.string,
+      largeImageURL: PropTypes.string,
+    }),
+  ),
+  bigImage: PropTypes.func,
+  toggleModal: PropTypes.func,
+};
